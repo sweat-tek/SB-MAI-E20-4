@@ -45,14 +45,18 @@ import org.jhotdraw.util.ResourceBundleUtil;
 public class TextCreationTool extends CreationTool implements ActionListener {
     private FloatingTextField   textField;
     private TextHolderFigure  typingTarget;
-    
+    private TextEditing textEdit;
+
     /** Creates a new instance. */
     public TextCreationTool(TextHolderFigure prototype) {
         super(prototype);
+        this.textEdit = new TextEditing();
     }
     /** Creates a new instance. */
     public TextCreationTool(TextHolderFigure prototype, Map<AttributeKey,Object> attributes) {
         super(prototype, attributes);
+        this.textEdit = new TextEditing();
+
     }
     
     @Override
@@ -158,30 +162,7 @@ public class TextCreationTool extends CreationTool implements ActionListener {
                     typingTarget.changed();
                 }
             }
-            UndoableEdit edit = new AbstractUndoableEdit() {
-
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
-
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
+            AbstractUndoableEdit edit = textEdit.undoRedo(editedFigure, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();

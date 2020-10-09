@@ -34,10 +34,13 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
+    private TextEditing textEdit;
 
     /** Creates a new instance. */
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
+        this.textEdit = new TextEditing();
+        
     }
 
     @Override
@@ -87,30 +90,8 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = new AbstractUndoableEdit() {
-
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
-
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
+            
+            AbstractUndoableEdit edit = textEdit.undoRedo(editedFigure, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
