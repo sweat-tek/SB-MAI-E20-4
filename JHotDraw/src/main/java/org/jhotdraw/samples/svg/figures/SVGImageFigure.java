@@ -92,7 +92,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
             if (image != null) {
                 create2DGraphics(image, g);
             } else {
-                drawShape(g);
+                drawDefaultShape(g);
             }
         }
     }
@@ -114,7 +114,7 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
                 }
     }
 
-    protected void drawShape(Graphics2D g){
+    protected void drawDefaultShape(Graphics2D g){
                  Shape shape = getTransformedShape();
                 g.setColor(Color.red);
                 g.setStroke(new BasicStroke());
