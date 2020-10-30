@@ -321,4 +321,5 @@ public class CreationTool extends AbstractTool {
             view.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         }
     }
+    
 }

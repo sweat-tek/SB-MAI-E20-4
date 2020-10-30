@@ -58,7 +58,7 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
 
     @Override
     public void deactivate(DrawingEditor editor) {
-        creationTool.endEdit();
+        endEdit();
         super.deactivate(editor);
     }
 
@@ -109,7 +109,31 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
         r.height += 4;
         return r;
     }
+    
+protected void endEdit() {
+        if (typingTarget != null) {
+            typingTarget.willChange();
 
+            final TextHolderFigure editedFigure = typingTarget;
+            final String oldText = typingTarget.getText();
+            final String newText = textArea.getText();
+
+            if (newText.length() > 0) {
+                typingTarget.setText(newText);
+            } else {
+                    typingTarget.setText("");
+            }
+            UndoableEdit edit = undoRedo(editedFigure,oldText, newText);
+            
+            getDrawing().fireUndoableEditHappened(edit);
+
+            typingTarget.changed();
+            typingTarget = null;
+
+            textArea.endOverlay();
+        }
+    //	        view().checkDamage();
+    }
     
 
     @Override
