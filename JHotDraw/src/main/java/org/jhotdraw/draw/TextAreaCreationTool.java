@@ -77,7 +77,8 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
      */
     private Color rubberbandColor = null;
 
-    /** Creates a new instance. */
+    /** Creates a new instance.
+     * @param prototype */
     public TextAreaCreationTool(TextHolderFigure prototype) {
         super(prototype);
     }
@@ -103,8 +104,8 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
     }
 
     /**
-     * Creates a new figure at the mouse location.
-     * If editing is in progress, this finishes editing.
+     * Creates a new figure at the mouse location.If editing is in progress, this finishes editing.
+     * @param e
      */
     @Override
     @FeatureEntryPoint(JHotDrawFeatures.TEXT_AREA_TOOL)
@@ -157,8 +158,8 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
 
     /**
      * This method allows subclasses to do perform additonal user interactions
-     * after the new figure has been created.
-     * The implementation of this class just invokes fireToolDone.
+     * after the new figure has been created.The implementation of this class just invokes fireToolDone.
+     * @param createdFigure
      */
     @Override
     protected void creationFinished(Figure createdFigure) {
@@ -265,6 +266,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
     //	        view().checkDamage();
     }
 
+    @Override
     public void actionPerformed(ActionEvent event) {
         endEdit();
         if (isToolDoneAfterCreation()) {
