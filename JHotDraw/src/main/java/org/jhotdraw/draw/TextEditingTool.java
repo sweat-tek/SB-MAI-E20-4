@@ -15,14 +15,11 @@ package org.jhotdraw.draw;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoableEdit;
-import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
- * A tool to edit figures which implement the {@code TextHolderFigure} interface,
- * such as {@code TextFigure}.
+ * A tool to edit figures which implement the {@code TextHolderFigure}
+ * interface, such as {@code TextFigure}.
  *
  * @see TextHolderFigure
  * @see FloatingTextField
@@ -35,10 +32,12 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
-        
+
     }
 
     @Override
@@ -81,7 +80,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         if (typingTarget != null) {
             typingTarget.willChange();
 
-            final TextHolderFigure editedFigure = typingTarget;
             final String oldText = typingTarget.getText();
             final String newText = textField.getText();
 
@@ -97,8 +95,9 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
             textField.endOverlay();
         }
-    //	        view().checkDamage();
+        //	        view().checkDamage();
     }
+
     @Override
     public void keyReleased(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
