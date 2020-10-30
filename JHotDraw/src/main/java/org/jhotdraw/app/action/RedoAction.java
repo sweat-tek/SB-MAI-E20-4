@@ -34,7 +34,7 @@ import org.jhotdraw.app.View;
  * @version 2.0 2006-06-15 Reworked.
  * <br>1.0 October 9, 2005 Created.
  */
-public class RedoAction extends AbstractViewAction {
+public class RedoAction extends UndoRedoAction {
     public final static String ID = "edit.redo";
     private ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
     
@@ -53,54 +53,7 @@ public class RedoAction extends AbstractViewAction {
     public RedoAction(Application app) {
         super(app);
         labels.configureAction(this, ID);
-    }
-    
-    protected void updateEnabledState() {
-        boolean isEnabled = false;
-        Action realRedoAction = getRealRedoAction();
-        if (realRedoAction != null) {
-            isEnabled = realRedoAction.isEnabled();
-        }
-        setEnabled(isEnabled);
-    }
-    
-    @Override protected void updateView(View oldValue, View newValue) {
-        super.updateView(oldValue, newValue);
-        if (newValue != null && newValue.getAction(ID) !=  null) {
-            putValue(AbstractAction.NAME, newValue.getAction(ID).
-                    getValue(AbstractAction.NAME));
-            updateEnabledState();
-        }
-    }
-    /**
-     * Installs listeners on the view object.
-     */
-    @Override protected void installViewListeners(View p) {
-        super.installViewListeners(p);
-        if (p.getAction(ID) != null) {
-        p.getAction(ID).addPropertyChangeListener(redoActionPropertyListener);
-        }
-    }
-    /**
-     * Installs listeners on the view object.
-     */
-    @Override protected void uninstallViewListeners(View p) {
-        super.uninstallViewListeners(p);
-        if (p.getAction(ID) != null) {
-        p.getAction(ID).removePropertyChangeListener(redoActionPropertyListener);
-        }
-    }
-
-    @FeatureEntryPoint(JHotDrawFeatures.UNDO_REDO)
-    public void actionPerformed(ActionEvent e) {
-        Action realRedoAction = getRealRedoAction();
-        if (realRedoAction != null) {
-            realRedoAction.actionPerformed(e);
-        }
-    }
-    
-    private Action getRealRedoAction() {
-        return (getActiveView() == null) ? null : getActiveView().getAction(ID);
+        setProp(redoActionPropertyListener);
     }
     
 }
