@@ -574,18 +574,13 @@ public class DefaultDrawingView
     @FeatureEntryPoint(JHotDrawFeatures.AUTOMATIC_SELECTION)
     public void selectAll() {
         Set<Figure> oldSelection = new HashSet<Figure>(selectedFigures);
-        selectedFigures.clear();
-
         for (Figure figure : drawing.getChildren()) {
             if (figure.isSelectable()) {
                 selectedFigures.add(figure);
             }
         }
-
-        Set<Figure> newSelection = new HashSet<Figure>(selectedFigures);
         invalidateHandles();
-        fireSelectionChanged(oldSelection, newSelection);
-        repaint();
+        fireSelectionChanged(oldSelection, selectedFigures);
     }
 
     /**
@@ -596,11 +591,9 @@ public class DefaultDrawingView
         if (getSelectionCount() > 0) {
             Set<Figure> oldSelection = new HashSet<Figure>(selectedFigures);
             selectedFigures.clear();
-            Set<Figure> newSelection = new HashSet<Figure>(selectedFigures);
             invalidateHandles();
-            fireSelectionChanged(oldSelection, newSelection);
+            fireSelectionChanged(oldSelection, selectedFigures);
         }
-    //repaintDrawingArea();
     }
 
     /**
