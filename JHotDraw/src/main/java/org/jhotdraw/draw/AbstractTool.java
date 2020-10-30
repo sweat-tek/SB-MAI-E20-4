@@ -451,7 +451,7 @@ public abstract class AbstractTool extends AbstractBean implements Tool {
         return false;
     }
 
-    public UndoableEdit undoRedo(FloatingTextField textField, TextHolderFigure typingTarget, String oldText, String newText) {
+    public UndoableEdit undoRedo(TextHolderFigure typingTarget, String oldText, String newText) {
         TextHolderFigure editedFigure = typingTarget;
 
         UndoableEdit edit = new AbstractUndoableEdit() {

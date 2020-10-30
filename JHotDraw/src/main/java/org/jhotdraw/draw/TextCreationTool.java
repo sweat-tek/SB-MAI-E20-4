@@ -154,7 +154,7 @@ public class TextCreationTool extends CreationTool implements ActionListener {
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = undoRedo(textField, typingTarget, oldText, newText);
+            UndoableEdit edit = undoRedo(typingTarget, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();

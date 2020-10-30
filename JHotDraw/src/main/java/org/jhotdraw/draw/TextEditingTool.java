@@ -86,7 +86,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = undoRedo(textField, typingTarget, oldText, newText);
+            UndoableEdit edit = undoRedo(typingTarget, oldText, newText);
 
             getDrawing().fireUndoableEditHappened(edit);
 
