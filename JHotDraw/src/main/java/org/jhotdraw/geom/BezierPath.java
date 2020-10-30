@@ -490,7 +490,6 @@ public class BezierPath extends ArrayList<BezierPath.Node>
         return generalPath.intersects(x, y, w, h);
     }
 
-    
     private void extendBounds(double x, double y) {
         if (x < LowerBoundX) {
             LowerBoundX = x;
@@ -505,7 +504,7 @@ public class BezierPath extends ArrayList<BezierPath.Node>
             UpperBoundY = y;
         }
     }
-    
+
     private double LowerBoundX, LowerBoundY, UpperBoundX, UpperBoundY;
 
     public Rectangle2D.Double getBounds2D() {
@@ -523,29 +522,29 @@ public class BezierPath extends ArrayList<BezierPath.Node>
                 if (isClosed && (node.mask & C1_MASK) != 0) {
                     y = node.y[1];
                     x = node.x[1];
-                    extendBounds(x,y);
+                    extendBounds(x, y);
 
                 }
                 if ((node.mask & C2_MASK) != 0) {
                     y = node.y[2];
                     x = node.x[2];
-                    extendBounds(x,y);
+                    extendBounds(x, y);
                 }
                 // handle last node
                 node = get(size - 1);
                 y = node.y[0];
                 x = node.x[0];
-                    extendBounds(x,y);
-                    
+                extendBounds(x, y);
+
                 if ((node.mask & C1_MASK) != 0) {
                     y = node.y[1];
                     x = node.x[1];
-                    extendBounds(x,y);
+                    extendBounds(x, y);
                 }
                 if (isClosed && (node.mask & C2_MASK) != 0) {
                     y = node.y[2];
                     x = node.x[2];
-                    extendBounds(x,y);
+                    extendBounds(x, y);
                 }
 
                 // handle all other nodes
@@ -553,16 +552,16 @@ public class BezierPath extends ArrayList<BezierPath.Node>
                     node = this.get(i);
                     y = node.y[0];
                     x = node.x[0];
-                    extendBounds(x,y);
+                    extendBounds(x, y);
                     if ((node.mask & C1_MASK) != 0) {
                         y = node.y[1];
                         x = node.x[1];
-                    extendBounds(x,y);
+                        extendBounds(x, y);
                     }
                     if ((node.mask & C2_MASK) != 0) {
                         y = node.y[2];
                         x = node.x[2];
-                    extendBounds(x,y);
+                        extendBounds(x, y);
                     }
                 }
             }
