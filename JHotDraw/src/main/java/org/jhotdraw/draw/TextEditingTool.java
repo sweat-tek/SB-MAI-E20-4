@@ -34,12 +34,10 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
-    private TextEditing textEdit;
 
     /** Creates a new instance. */
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
-        this.textEdit = new TextEditing();
         
     }
 
@@ -90,8 +88,8 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            
-            AbstractUndoableEdit edit = textEdit.undoRedo(editedFigure, oldText, newText);
+            UndoableEdit edit = undoRedo(textField, typingTarget, oldText, newText);
+
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
@@ -101,7 +99,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         }
     //	        view().checkDamage();
     }
-
     @Override
     public void keyReleased(KeyEvent evt) {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {

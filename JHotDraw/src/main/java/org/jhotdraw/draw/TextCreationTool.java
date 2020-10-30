@@ -45,17 +45,14 @@ import org.jhotdraw.util.ResourceBundleUtil;
 public class TextCreationTool extends CreationTool implements ActionListener {
     private FloatingTextField   textField;
     private TextHolderFigure  typingTarget;
-    private TextEditing textEdit;
 
     /** Creates a new instance. */
     public TextCreationTool(TextHolderFigure prototype) {
         super(prototype);
-        this.textEdit = new TextEditing();
     }
     /** Creates a new instance. */
     public TextCreationTool(TextHolderFigure prototype, Map<AttributeKey,Object> attributes) {
         super(prototype, attributes);
-        this.textEdit = new TextEditing();
 
     }
     
@@ -153,24 +150,16 @@ public class TextCreationTool extends CreationTool implements ActionListener {
 
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
-            } else {
-                if (createdFigure != null) {
-                    getDrawing().remove((Figure)getAddedFigure());
-                // XXX - Fire undoable edit here!!
-                } else {
-                    typingTarget.setText("");
-                    typingTarget.changed();
-                }
             }
-            AbstractUndoableEdit edit = textEdit.undoRedo(editedFigure, oldText, newText);
+            UndoableEdit edit = undoRedo(textField, typingTarget, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
             typingTarget = null;
-            
+
             textField.endOverlay();
         }
-        //	        view().checkDamage();
+    //	        view().checkDamage();
     }
     
     @Override
@@ -203,4 +192,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
             view.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         }
     }
+    
+    
 }
