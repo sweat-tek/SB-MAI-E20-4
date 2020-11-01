@@ -90,8 +90,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
      */
     protected Rectangle2D.Double getSelectionBounds() {
         Rectangle2D.Double bounds = null;
-        for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-            Figure f = (Figure) i.next();
+        for (Figure f : getView().getSelectedFigures()) {
             if (bounds == null) {
                 bounds = f.getBounds();
             } else {
