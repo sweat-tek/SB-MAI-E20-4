@@ -42,6 +42,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
         super(editor);
     }
 
+    @Override
     public void updateEnabledState() {
         if (getView() != null) {
             setEnabled(getView().isEnabled()
@@ -53,6 +54,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
     }
 
     @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
+    @Override
     public void actionPerformed(java.awt.event.ActionEvent e) {
         CompositeEdit edit = new CompositeEdit(labels.getString("edit.align.text"));
         fireUndoableEditHappened(edit);
