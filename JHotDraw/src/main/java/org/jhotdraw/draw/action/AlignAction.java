@@ -117,23 +117,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.y - figureBounds.y;
         }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double y = selectionBounds.y;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(0, y - b.y);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
-        }
     }
 
     public static class East extends AlignAction {
@@ -151,23 +134,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         @Override
         protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.x + selectionBounds.width - figureBounds.x - figureBounds.width;
-        }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double x = selectionBounds.x + selectionBounds.width;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(x - b.x - b.width, 0);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
         }
     }
 
@@ -187,23 +153,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.x - figureBounds.x;
         }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double x = selectionBounds.x;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(x - b.x, 0);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
-        }
     }
 
     public static class South extends AlignAction {
@@ -221,23 +170,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         @Override
         protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.y + selectionBounds.height - figureBounds.y - figureBounds.height;
-        }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double y = selectionBounds.y + selectionBounds.height;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(0, y - b.y - b.height);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
         }
     }
 
@@ -257,23 +189,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.y + selectionBounds.height / 2 - figureBounds.y - figureBounds.height / 2;
         }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double y = selectionBounds.y + selectionBounds.height / 2;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(0, y - b.y - b.height / 2);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
-        }
     }
 
     public static class Horizontal extends AlignAction {
@@ -291,23 +206,6 @@ public abstract class AlignAction extends AbstractSelectedAction {
         @Override
         protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.x + selectionBounds.width / 2 - figureBounds.x - figureBounds.width / 2;
-        }
-        
-        @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
-        protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
-            double x = selectionBounds.x + selectionBounds.width / 2;
-            for (Iterator i = getView().getSelectedFigures().iterator(); i.hasNext();) {
-                Figure f = (Figure) i.next();
-                if (f.isTransformable()) {
-                    f.willChange();
-                    Rectangle2D.Double b = f.getBounds();
-                    AffineTransform tx = new AffineTransform();
-                    tx.translate(x - b.x - b.width / 2, 0);
-                    f.transform(tx);
-                    f.changed();
-                    fireUndoableEditHappened(new TransformEdit(f, tx));
-                }
-            }
         }
     }
 }
