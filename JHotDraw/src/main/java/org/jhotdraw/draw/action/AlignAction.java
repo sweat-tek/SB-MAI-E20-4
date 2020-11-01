@@ -60,15 +60,28 @@ public abstract class AlignAction extends AbstractSelectedAction {
         fireUndoableEditHappened(edit);
     }
 
-    protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds){
-        
+    protected void alignFigures(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds){
+        double x, y = 0;
+        for (Figure f : selectedFigures) {
+            if (f.isTransformable()) {
+                f.willChange();
+                Rectangle2D.Double figureBounds = f.getBounds();
+                AffineTransform tx = new AffineTransform();
+                x = this.tanslateX(figureBounds, selectionBounds);
+                y = this.tanslateY(figureBounds, selectionBounds);
+                tx.translate(x, y);
+                f.transform(tx);
+                f.changed();
+                fireUndoableEditHappened(new TransformEdit(f, tx));
+            }
+        }
     }
 
-    protected double tanslateX(){
+    protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
         return 0;
     }
     
-    protected double tanslateY(){
+    protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
         return 0;
     }
     
@@ -99,7 +112,12 @@ public abstract class AlignAction extends AbstractSelectedAction {
             super(editor);
             labels.configureAction(this, "edit.alignNorth");
         }
-
+        
+        @Override
+        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.y - figureBounds.y;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double y = selectionBounds.y;
@@ -130,6 +148,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
             labels.configureAction(this, "edit.alignEast");
         }
 
+        @Override
+        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.x + selectionBounds.width - figureBounds.x - figureBounds.width;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double x = selectionBounds.x + selectionBounds.width;
@@ -160,6 +183,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
             labels.configureAction(this, "edit.alignWest");
         }
 
+        @Override
+        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.x - figureBounds.x;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double x = selectionBounds.x;
@@ -190,6 +218,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
             labels.configureAction(this, "edit.alignSouth");
         }
 
+        @Override
+        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.y + selectionBounds.height - figureBounds.y - figureBounds.height;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double y = selectionBounds.y + selectionBounds.height;
@@ -220,6 +253,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
             labels.configureAction(this, "edit.alignVertical");
         }
 
+        @Override
+        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.y + selectionBounds.height / 2 - figureBounds.y - figureBounds.height / 2;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double y = selectionBounds.y + selectionBounds.height / 2;
@@ -250,6 +288,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
             labels.configureAction(this, "edit.alignHorizontal");
         }
 
+        @Override
+        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.x + selectionBounds.width / 2 - figureBounds.x - figureBounds.width / 2;
+        }
+        
         @FeatureEntryPoint(JHotDrawFeatures.ALIGN_PALETTE)
         protected void alignFigures(Collection selectedFigures, Rectangle2D.Double selectionBounds) {
             double x = selectionBounds.x + selectionBounds.width / 2;
