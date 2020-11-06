@@ -41,12 +41,9 @@ public class PasteAction extends AbstractEditAction {
 
     @Override
     public void onActionPerformed(ActionEvent event, Component focusOwnerComponent) {
-        System.out.println("first: " + focusOwnerComponent.getClass());
         Optional.ofNullable(getJComponent(focusOwnerComponent)).ifPresent(component -> {
-            System.out.println("again: " + component.getClass());
             Transferable transferable = component.getToolkit().getSystemClipboard().getContents(component);
             if (transferable != null && component.getTransferHandler() != null) {
-                System.out.println("hello: " + component);
                 component.getTransferHandler().importData(
                     component,
                     transferable
