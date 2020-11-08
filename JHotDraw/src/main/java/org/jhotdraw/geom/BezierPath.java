@@ -449,34 +449,10 @@ public class BezierPath extends ArrayList<BezierPath.Node>
     }
 
     public PathIterator getPathIterator(AffineTransform at) {
-        /*
-        validatePath();
-        PathIterator git = generalPath.getPathIterator(at);
-        PathIterator bit = new BezierPathIterator(this, at);
-        float gcoords[] = new float[6];
-        float bcoords[] = new float[6];
-        int i=0;
-        while (! git.isDone() && ! bit.isDone()) {
-        int gtype = git.currentSegment(gcoords);
-        int btype = bit.currentSegment(bcoords);
-        System.out.println(i+" "+gtype+"["+gcoords[0]+","+gcoords[1]+","+gcoords[2]+","+gcoords[3]+","+gcoords[4]+","+gcoords[5]+
-        "]="+btype+"["+bcoords[0]+","+bcoords[1]+","+bcoords[2]+","+bcoords[3]+","+bcoords[4]+","+bcoords[5]+"]");
-        git.next();
-        bit.next();
-        i++;
-        }
-        System.out.println("- "+git.isDone()+"="+bit.isDone());
-        
-        
-        //  return generalPath.getPathIterator(at);*/
         return new BezierPathIterator(this, at);
     }
 
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
-        /*
-        validatePath();
-        return generalPath.getPathIterator(at, flatness);
-         */
         return new FlatteningPathIterator(new BezierPathIterator(this, at), flatness);
     }
 
@@ -523,7 +499,6 @@ public class BezierPath extends ArrayList<BezierPath.Node>
                     y = node.y[1];
                     x = node.x[1];
                     extendBounds(x, y);
-
                 }
                 if ((node.mask & C2_MASK) != 0) {
                     y = node.y[2];
@@ -647,7 +622,6 @@ public class BezierPath extends ArrayList<BezierPath.Node>
             sx += p.x[0];
             sy += p.y[0];
         }
-
         int n = size();
         return new Point2D.Double(sx / n, sy / n);
     }
@@ -660,79 +634,6 @@ public class BezierPath extends ArrayList<BezierPath.Node>
     public Point2D.Double chop(Point2D.Double p) {
         validatePath();
         return Geom.chop(generalPath, p);
-        /*
-    Point2D.Double ctr = getCenter();
-    
-    // Chopped point
-    double cx = -1;
-    double cy = -1;
-    double len = Double.MAX_VALUE;
-    
-    // Try for points along edge
-    validatePath();
-    PathIterator i = generalPath.getPathIterator(new AffineTransform(), 1);
-    double[] coords = new double[6];
-    int type = i.currentSegment(coords);
-    double prevX = coords[0];
-    double prevY = coords[1];
-    i.next();
-    for (; ! i.isDone(); i.next()) {
-    i.currentSegment(coords);
-    Point2D.Double chop = Geom.intersect(
-    prevX, prevY,
-    coords[0], coords[1],
-    p.x, p.y,
-    ctr.x, ctr.y
-    );
-    
-    if (chop != null) {
-    double cl = Geom.length2(chop.x, chop.y, p.x, p.y);
-    if (cl < len) {
-    len = cl;
-    cx = chop.x;
-    cy = chop.y;
-    }
-    }
-    
-    prevX = coords[0];
-    prevY = coords[1];
-    }
-    
-    //
-    if (isClosed() && size() > 1) {
-    Node first = get(0);
-    Node last = get(size() - 1);
-    Point2D.Double chop = Geom.intersect(
-    first.x[0], first.y[0],
-    last.x[0], last.y[0],
-    p.x, p.y,
-    ctr.x, ctr.y
-    );
-    if (chop != null) {
-    double cl = Geom.length2(chop.x, chop.y, p.x, p.y);
-    if (cl < len) {
-    len = cl;
-    cx = chop.x;
-    cy = chop.y;
-    }
-    }
-    }
-    
-    
-    // if none found, pick closest vertex
-    if (len == Double.MAX_VALUE) {
-    for (int j = 0, n = size(); j < n; j++) {
-    Node cp = get(j);
-    double l = Geom.length2(cp.x[0], cp.y[0], p.x, p.y);
-    if (l < len) {
-    len = l;
-    cx = cp.x[0];
-    cy = cp.y[0];
-    }
-    }
-    }
-    return new Point2D.Double(cx, cy);
-         */
     }
 
     /**
