@@ -43,8 +43,8 @@ public class TextEditingToolTest {
     private DefaultDrawingEditor defaultDrawingEditor;
     private Drawing drawing;
     private TextEditingTool tool;
-    private int x = 0;
-    private int y = 0;
+    private int x = 50;
+    private int y = 50;
     private Constrainer constrainer;
     private SVGTextFigure textHolder;
     private FloatingTextField floatingTextField;
@@ -81,8 +81,8 @@ public class TextEditingToolTest {
         
         Mockito.when(defaultDrawingEditor.getActiveView()).thenReturn(defaultDrawingView);
         Mockito.when(defaultDrawingEditor.findView(defaultDrawingView)).thenReturn(defaultDrawingView);      
-        when(defaultDrawingView.drawingToView(any(Rectangle2D.Double.class))).thenReturn(new Rectangle(10, 10, 10, 10));
-        when(defaultDrawingView.drawingToView(any(Point2D.Double.class))).thenReturn(new Point(10, 10));
+        when(defaultDrawingView.drawingToView(any(Rectangle2D.Double.class))).thenReturn(new Rectangle(x, y, 10, 10));
+        when(defaultDrawingView.drawingToView(any(Point2D.Double.class))).thenReturn(new Point(x, y));
 
         Mockito.when(defaultDrawingView.getDrawing()).thenReturn(drawing);
         Mockito.when(defaultDrawingView.getComponent()).thenReturn(defaultDrawingView);
@@ -104,6 +104,9 @@ public class TextEditingToolTest {
         
         tool.beginEdit(newText);
  
+        //Component component = defaultDrawingView.getComponent(0);
+        
+        //assertEquals(((JTextField)component).getText(), newText.getText());
         assertEquals(tool.getTypingTarget().getText(), newText.getText());
     }
     

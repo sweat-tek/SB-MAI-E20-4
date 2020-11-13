@@ -128,7 +128,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public TextHolderFigure getTypingTarget() {
+    protected TextHolderFigure getTypingTarget() {
         return typingTarget;
     }
 
