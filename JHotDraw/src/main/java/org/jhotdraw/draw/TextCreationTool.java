@@ -75,7 +75,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
         // Note: The search sequence used here, must be
         // consistent with the search sequence used by the
         // HandleTracker, SelectAreaTracker, DelegationSelectionTool, SelectionTool.
-
         // If possible, continue to work with the current selection
         DrawingView v = getView();
         Point2D.Double p = v.viewToDrawing(e.getPoint());
@@ -88,7 +87,6 @@ public class TextCreationTool extends CreationTool implements ActionListener {
                 }
             }
         }
-
         // If the point is not contained in the current selection,
         // search for a figure in the drawing.
         if (pressedFigure == null) {

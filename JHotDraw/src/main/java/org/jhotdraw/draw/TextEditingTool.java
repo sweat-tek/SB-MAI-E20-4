@@ -16,6 +16,7 @@ package org.jhotdraw.draw;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.undo.UndoableEdit;
+import org.jhotdraw.samples.svg.figures.SVGTextFigure;
 
 /**
  * A tool to edit figures which implement the {@code TextHolderFigure}
@@ -62,7 +63,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             textField = new FloatingTextField();
             textField.addActionListener(this);
         }
-
+        
         if (textHolder != typingTarget && typingTarget != null) {
             endEdit();
         }
@@ -126,4 +127,9 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     public void mouseDragged(MouseEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    public TextHolderFigure getTypingTarget() {
+        return typingTarget;
+    }
+
 }
