@@ -5,23 +5,14 @@
  */
 package org.jhotdraw.app.action;
 
-import java.awt.Component;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
-import javax.swing.JComponent;
 import javax.swing.JTextField;
-import org.jhotdraw.draw.DefaultDrawingEditor;
-import org.jhotdraw.draw.DefaultDrawingView;
-import org.jhotdraw.draw.DefaultDrawingViewTransferHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  *
@@ -67,14 +58,15 @@ public class CopyActionTest {
         JTextField component = new JTextField("Hello is it me you're looking for?");
         component.grabFocus();
         component.selectAll();
-        ActionEvent event = new ActionEvent(component, ActionEvent.ACTION_PERFORMED, "edit.copy");
+        ActionEvent Copyevent = new ActionEvent(component, ActionEvent.ACTION_PERFORMED, "edit.copy");
         CopyAction instance = new CopyAction();
-        instance.onActionPerformed(event, component);
+        instance.onActionPerformed(Copyevent, component);
         
         component.setCaretPosition(component.getText().length());
-        Transferable transferable = component.getToolkit().getSystemClipboard().getContents(component);
-        component.getTransferHandler().importData(component, transferable);
-
+        ActionEvent pasteEvent = new ActionEvent(component, ActionEvent.ACTION_PERFORMED, "edit.paste");
+        PasteAction pasteAction = new PasteAction();
+        pasteAction.onActionPerformed(pasteEvent, component);
+        
         assertEquals(component.getText(), "Hello is it me you're looking for?Hello is it me you're looking for?");
     }
     
