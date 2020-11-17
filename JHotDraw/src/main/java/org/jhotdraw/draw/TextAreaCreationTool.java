@@ -144,7 +144,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         // 
         if (pressedFigure instanceof TextHolderFigure) {
             textHolder = (TextHolderFigure) pressedFigure;
-            textHolder = null;
+           // textHolder = null;
         }
 
         if (textHolder != null) {
