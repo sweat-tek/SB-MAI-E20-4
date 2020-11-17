@@ -59,58 +59,10 @@ public class TextAreaCreationToolTest extends ScenarioTest<Given, When, Then> {
     public void tearDown() {
     }
 
-    /**
-     * Test of setRubberbandColor method, of class TextAreaCreationTool.
-     * @param c
-     */
-    @Test
-    public void testSetRubberbandColor() {
-        System.out.println("setRubberbandColor");
-        Color c = null;
-        TextAreaCreationTool instance = null;
-        instance.setRubberbandColor(c);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+  
 
-    /**
-     * Test of deactivate method, of class TextAreaCreationTool.
-     */
-    @Test
-    public void testDeactivate() {
-        System.out.println("deactivate");
-        DrawingEditor editor = null;
-        TextAreaCreationTool instance = null;
-        instance.deactivate(editor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of mousePressed method, of class TextAreaCreationTool.
-     */
-    @Test
-    public void testMousePressed() {
-        System.out.println("mousePressed");
-        MouseEvent e = null;
-        TextAreaCreationTool instance = null;
-        instance.mousePressed(e);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of creationFinished method, of class TextAreaCreationTool.
-     */
-    @Test
-    public void testCreationFinished() {
-        System.out.println("creationFinished");
-        Figure createdFigure = null;
-        TextAreaCreationTool instance = null;
-        instance.creationFinished(createdFigure);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+ 
 
     /**
      * Test of draw method, of class TextAreaCreationTool.
@@ -146,30 +98,7 @@ public class TextAreaCreationToolTest extends ScenarioTest<Given, When, Then> {
 
     }
 
-    /**
-     * Test of endEdit method, of class TextAreaCreationTool.
-     */
-    @Test
-    public void testEndEdit() {
-        System.out.println("endEdit");
-        TextAreaCreationTool instance = null;
-        instance.endEdit();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of actionPerformed method, of class TextAreaCreationTool.
-     */
-    @Test
-    public void testActionPerformed() {
-        System.out.println("actionPerformed");
-        ActionEvent event = null;
-        TextAreaCreationTool instance = null;
-        instance.actionPerformed(event);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+  
  
     
    
