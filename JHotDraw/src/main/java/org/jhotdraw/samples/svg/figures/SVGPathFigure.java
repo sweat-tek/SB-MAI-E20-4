@@ -321,8 +321,8 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     
     public boolean isEmpty() {
         for (Figure child : getChildren()) {
-            SVGBezierFigure b = (SVGBezierFigure) child;
-            if (b.getNodeCount() > 0) {
+            SVGBezierFigure bezierFigure = (SVGBezierFigure) child;
+            if (bezierFigure.getNodeCount() > 0) {
                 return false;
             }
         }
