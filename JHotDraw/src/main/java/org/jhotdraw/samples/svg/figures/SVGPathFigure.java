@@ -156,19 +156,17 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         }
         return cachedPath;
     }
+    
     protected Shape getHitShape() {
         if (cachedHitShape == null) {
             cachedHitShape = getPath();
             if (FILL_COLOR.get(this) == null && FILL_GRADIENT.get(this) == null) {
                 cachedHitShape = SVGAttributeKeys.getHitStroke(this).createStrokedShape(cachedHitShape);
                 }
-
         }
         return cachedHitShape;
     }
 
-    
-    // int count;
     public Rectangle2D.Double getDrawingArea() {
         if (cachedDrawingArea == null) {
             double strokeTotalWidth = AttributeKeys.getStrokeTotalWidth(this);
@@ -202,33 +200,36 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     final public void read(DOMInput in) throws IOException {
         throw new UnsupportedOperationException("Use SVGStorableInput to read this Figure.");
     }
-
-    public boolean contains(Point2D.Double p) {
+    
+    private Point2D.Double inversePointTransform(Point2D.Double point){
+        try {
+            point = (Point2D.Double) TRANSFORM.get(this).inverseTransform(point, new Point2D.Double());
+            return point;
+        } catch (NoninvertibleTransformException ex) {
+            ex.printStackTrace();
+        }
+        return point;
+    }
+    
+    public boolean contains(Point2D.Double point) {
         getPath();
         if (TRANSFORM.get(this) != null) {
-            try {
-                p = (Point2D.Double) TRANSFORM.get(this).inverseTransform(p, new Point2D.Double());
-            } catch (NoninvertibleTransformException ex) {
-                ex.printStackTrace();
-            }
+            point = inversePointTransform(point);
         }
         boolean isClosed = CLOSED.get(getChild(0));
         if (isClosed && FILL_COLOR.get(this) == null && FILL_GRADIENT.get(this)==null) {
-            return getHitShape().contains(p);
+            return getHitShape().contains(point);
         }
-        /*
-        return cachedPath.contains(p2);
-         */
         double tolerance = Math.max(2f, AttributeKeys.getStrokeTotalWidth(this) / 2d);
         if (isClosed || FILL_COLOR.get(this) != null || FILL_GRADIENT.get(this)!=null) {
-            if (getPath().contains(p)) {
+            if (getPath().contains(point)) {
                 return true;
             }
             double grow = AttributeKeys.getPerpendicularHitGrowth(this) /** 2d*/;
             GrowStroke gs = new GrowStroke((float) grow,
                     (float) (AttributeKeys.getStrokeTotalWidth(this) *
                     STROKE_MITER_LIMIT.get(this)));
-            if (gs.createStrokedShape(getPath()).contains(p)) {
+            if (gs.createStrokedShape(getPath()).contains(point)) {
                 return true;
             } else {
                 if (isClosed) {
@@ -237,7 +238,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             }
         }
         if (!isClosed) {
-            if (Shapes.outlineContains(getPath(), p, tolerance)) {
+            if (Shapes.outlineContains(getPath(), point, tolerance)) {
                 return true;
             }
         }
@@ -417,6 +418,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
             });
         } else {
             actions.add(new AbstractAction(labels.getString("attribute.closePath.text")) {
+                
                 @FeatureEntryPoint(JHotDrawFeatures.LINE_TOOL)
                 public void actionPerformed(ActionEvent evt) {
                     SVGPathFigure.this.willChange();
@@ -449,6 +451,8 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         }
         return actions;
     }
+    
+    
     // CONNECTING
     public boolean canConnect() {
         return false; // SVG does not support connecting
