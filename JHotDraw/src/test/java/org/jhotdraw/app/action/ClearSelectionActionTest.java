@@ -71,7 +71,8 @@ public class ClearSelectionActionTest {
             dv.getDrawing().add(lf);
             dv.getDrawing().add(bf);
             
-            dv.selectAll();
+            dv.addToSelection(lf);
+            dv.addToSelection(bf);
             
             System.out.println("Selected before: " + dv.getSelectedFigures().size());
             assert dv.getSelectedFigures().size() > 0;
