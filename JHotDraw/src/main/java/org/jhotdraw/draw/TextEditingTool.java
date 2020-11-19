@@ -131,5 +131,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     protected TextHolderFigure getTypingTarget() {
         return typingTarget;
     }
+    
 
 }

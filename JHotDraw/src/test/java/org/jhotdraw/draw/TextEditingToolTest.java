@@ -5,23 +5,12 @@
  */
 package org.jhotdraw.draw;
 
-import java.awt.AWTException;
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.awt.geom.Rectangle2D;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import org.jhotdraw.app.JHotDrawFeatures;
 import org.jhotdraw.samples.svg.figures.SVGTextFigure;
-import org.jhotdraw.samples.svg.io.DefaultSVGFigureFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,7 +18,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyObject;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 
@@ -92,7 +80,7 @@ public class TextEditingToolTest {
     }
     
     /**
-     * Test of endEdit method, of class TextEditingTool.
+     * Test of beginEdit and endEdit method, of class TextEditingTool.
      */
     @Test
     public void testEdit() {
@@ -104,9 +92,6 @@ public class TextEditingToolTest {
         
         tool.beginEdit(newText);
  
-        //Component component = defaultDrawingView.getComponent(0);
-        
-        //assertEquals(((JTextField)component).getText(), newText.getText());
         assertEquals(tool.getTypingTarget().getText(), newText.getText());
     }
     
