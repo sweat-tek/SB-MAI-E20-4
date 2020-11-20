@@ -86,7 +86,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
                 }
 
                 if (!drawingArea.isEmpty()) {
-                    setupDrawingArea(drawingArea, g, opacity);
+                    drawBufferedGraphics(drawingArea, g, opacity);
                 }
             } else {
                 drawFigure(g);
@@ -94,7 +94,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         }
     }
 
-    private void setupDrawingArea(Rectangle2D.Double drawingArea, Graphics2D g, double opacity) {
+    private void drawBufferedGraphics(Rectangle2D.Double drawingArea, Graphics2D g, double opacity) {
         BufferedImage buf = new BufferedImage(
                 Math.max(1, (int) ((2 + drawingArea.width) * g.getTransform().getScaleX())),
                 Math.max(1, (int) ((2 + drawingArea.height) * g.getTransform().getScaleY())),
