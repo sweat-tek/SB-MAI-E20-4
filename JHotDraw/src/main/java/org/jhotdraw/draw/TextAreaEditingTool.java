@@ -48,6 +48,7 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
     private FloatingTextArea textArea;
     private TextHolderFigure typingTarget;
     private TextAreaCreationTool creationTool;
+    private TextAreaUndoRedoTool UndoRedoTool;
 
     /** Creates a new instance.
      * @param typingTarget */
@@ -123,7 +124,7 @@ protected void endEdit() {
             } else {
                     typingTarget.setText("");
             }
-            UndoableEdit edit = undoRedo(editedFigure,oldText, newText);
+            UndoableEdit edit = UndoRedoTool.undoRedo(editedFigure,oldText, newText);
             
             getDrawing().fireUndoableEditHappened(edit);
 

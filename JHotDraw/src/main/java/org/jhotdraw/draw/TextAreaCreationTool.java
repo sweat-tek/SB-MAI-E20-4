@@ -73,6 +73,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
 
     private FloatingTextArea textArea;
     private TextHolderFigure typingTarget;
+    private TextAreaUndoRedoTool UndoRedoTool;
     /**
      * Rubberband color of the tool. When this is null, the tool does not draw a
      * rubberband.
@@ -91,6 +92,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
     public TextAreaCreationTool(TextHolderFigure prototype, Map<AttributeKey, Object> attributes) {
         super(prototype, attributes);
     }
+    
 
     /**
      * Sets the rubberband color for the tool. Setting this to null, disables
@@ -241,7 +243,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
                 }
             }
 
-            UndoableEdit edit = undoRedo(editedFigure, oldText, newText);
+            UndoableEdit edit = UndoRedoTool.undoRedo(editedFigure, oldText, newText);
 
             getDrawing().fireUndoableEditHappened(edit);
 
