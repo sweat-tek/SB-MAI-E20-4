@@ -44,6 +44,7 @@ public class TextCreationTool extends CreationTool implements ActionListener {
 
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
+    private TextToolUtil textToolUtil;
 
     /**
      * Creates a new instance.
@@ -148,11 +149,12 @@ public class TextCreationTool extends CreationTool implements ActionListener {
 
             final String oldText = typingTarget.getText();
             final String newText = textField.getText();
+            textToolUtil = new TextToolUtil();
 
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = undoRedo(typingTarget, oldText, newText);
+            UndoableEdit edit = textToolUtil.undoRedo(typingTarget, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();

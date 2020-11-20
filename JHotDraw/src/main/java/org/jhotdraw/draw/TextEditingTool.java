@@ -16,7 +16,6 @@ package org.jhotdraw.draw;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.undo.UndoableEdit;
-import org.jhotdraw.samples.svg.figures.SVGTextFigure;
 
 /**
  * A tool to edit figures which implement the {@code TextHolderFigure}
@@ -32,6 +31,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
+    private TextToolUtil textToolUtil;
 
     /**
      * Creates a new instance.
@@ -83,12 +83,12 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
             final String oldText = typingTarget.getText();
             final String newText = textField.getText();
+            textToolUtil = new TextToolUtil();
 
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = undoRedo(typingTarget, oldText, newText);
-
+            UndoableEdit edit = textToolUtil.undoRedo(typingTarget, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
