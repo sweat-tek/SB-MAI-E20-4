@@ -10,8 +10,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import javax.imageio.ImageIO;
@@ -19,6 +22,7 @@ import javax.swing.Action;
 import org.jhotdraw.draw.ConnectionFigure;
 import org.jhotdraw.draw.Connector;
 import org.jhotdraw.draw.Handle;
+import org.jhotdraw.util.ResourceBundleUtil;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -460,27 +464,52 @@ public class SVGImageFigureTest {
      */
     @Test
     public void testLoadImage_File() throws Exception {
-        System.out.println("loadImage test");
-      
+        System.out.println("loadImage_File unitTest");
+   
         //For windows
         File file = new File("C:\\#Git\\SoftwareMaintenance\\"
                 + "SB-MAI-E20-4\\JHotDraw\\Files for UnitTests\\java.png");
-
-        //Asserting that the file in the folder is not null, 
-        //and therefore imported the file correctly
-        assertNotNull(file.getName());
+       
+   InputStream inputStream = new FileInputStream(file);
+   
+        //Asserting that the inputstream is not null, 
+        //and therefore read the file correctly
+        assertNotNull(inputStream.toString());
     }
 
     /**
      * Test of loadImage method, of class SVGImageFigure.
      */
-//    @Test
-//    public void testLoadImage_InputStream() throws Exception {
-//        System.out.println("loadImage");
-//        InputStream in = null;
-//        SVGImageFigure instance = new SVGImageFigure();
-//        instance.loadImage(in);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
+    @Test
+    public void testLoadImage_InputStream() throws Exception {
+        byte[] imageData;
+        BufferedImage bufferedImage;
+        System.out.println("loadImage_InputStream unitTest");
+        
+                //For windows
+        File file = new File("C:\\#Git\\SoftwareMaintenance\\"
+                + "SB-MAI-E20-4\\JHotDraw\\Files for UnitTests\\java.png");
+       
+        
+         InputStream inputStream = new FileInputStream(file);
+       
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buf = new byte[512];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buf)) > 0) {
+            baos.write(buf, 0, bytesRead);
+        }
+        BufferedImage img;
+            img = ImageIO.read(new ByteArrayInputStream(baos.toByteArray()));
+
+        imageData = baos.toByteArray();
+        bufferedImage = img;
+        
+        System.out.println("Buffered Image data"+ bufferedImage.getData());
+        System.out.println("Buffered Image height"+ bufferedImage.getData().getHeight());
+        
+        //Asserting that the BufferedImage is not null, 
+        //and therefore read the data from the file correctly
+        assertNotNull(img);
+    }
 }
