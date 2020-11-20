@@ -466,10 +466,9 @@ public class SVGImageFigureTest {
     public void testLoadImage_File() throws Exception {
         System.out.println("loadImage_File unitTest");
    
-        //For windows
-        File file = new File("C:\\#Git\\SoftwareMaintenance\\"
-                + "SB-MAI-E20-4\\JHotDraw\\Files for UnitTests\\java.png");
-       
+
+        File file = new File("src\\FilesForUnitTests\\java.png");
+
    InputStream inputStream = new FileInputStream(file);
    
         //Asserting that the inputstream is not null, 
@@ -486,9 +485,8 @@ public class SVGImageFigureTest {
         BufferedImage bufferedImage;
         System.out.println("loadImage_InputStream unitTest");
         
-                //For windows
-        File file = new File("C:\\#Git\\SoftwareMaintenance\\"
-                + "SB-MAI-E20-4\\JHotDraw\\Files for UnitTests\\java.png");
+
+        File file = new File("src\\FilesForUnitTests\\java.png");
        
         
          InputStream inputStream = new FileInputStream(file);
