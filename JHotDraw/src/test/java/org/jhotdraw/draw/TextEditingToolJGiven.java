@@ -12,12 +12,12 @@ import org.junit.Test;
  *
  * @author birke
  */
-public class TextEditingToolJGiven extends ScenarioTest<GivenSomeState, WhenSomeAction, ThenSomeOutcome> {
+public class TextEditingToolJGiven extends ScenarioTest<Given, When, Then> {
 
     @Test
-    public void something_should_happen() {
-        given().some_state();
-        when().some_action();
-        then().some_outcome();
+    public void isEditedTest() {
+        given().aTextField();
+        when().edit();
+        then().edited();
     }
 }
