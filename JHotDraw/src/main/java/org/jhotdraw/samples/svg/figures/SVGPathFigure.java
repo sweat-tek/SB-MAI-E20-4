@@ -79,7 +79,6 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
         if (opacity != 0d) {
             if (opacity != 1d) {
                 Rectangle2D.Double drawingArea = getDrawingArea();
-
                 Rectangle2D clipBounds = g.getClipBounds();
                 if (clipBounds != null) {
                     Rectangle2D.intersect(drawingArea, clipBounds, drawingArea);
@@ -463,7 +462,7 @@ public class SVGPathFigure extends AbstractAttributedCompositeFigure implements 
     public Collection<Action> getActions(Point2D.Double p) {
         final ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.samples.svg.Labels");
         LinkedList<Action> actions = new LinkedList<Action>();
-        assert TRANSFORM.get(this) != null;
+
         if (TRANSFORM.get(this) != null) {
             actions.add(getRemoveTransformAction(labels));
             actions.add(getFlattenTransformAction(labels));
