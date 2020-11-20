@@ -26,16 +26,13 @@ import static org.mockito.Mockito.when;
  * @author birke
  */
 public class TextEditingToolTest {
-    private static SVGTextFigure text;
     private DefaultDrawingView defaultDrawingView;
     private DefaultDrawingEditor defaultDrawingEditor;
     private Drawing drawing;
     private TextEditingTool tool;
     private int x = 50;
     private int y = 50;
-    private Constrainer constrainer;
     private SVGTextFigure textHolder;
-    private FloatingTextField floatingTextField;
     
     public TextEditingToolTest() {
     }
