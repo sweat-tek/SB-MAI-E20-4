@@ -5,9 +5,7 @@
  */
 package org.jhotdraw.draw;
 
-import com.tngtech.jgiven.junit.ScenarioTest;
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.BeforeStage;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -17,7 +15,6 @@ import java.awt.geom.Rectangle2D;
 import org.jhotdraw.samples.svg.figures.SVGTextFigure;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.when;
 
 /**
  *
