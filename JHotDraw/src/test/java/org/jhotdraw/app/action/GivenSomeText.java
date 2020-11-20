@@ -6,10 +6,9 @@
 package org.jhotdraw.app.action;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.annotation.BeforeStage;
-import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 import javax.swing.JTextField;
+import org.mockito.Mockito;
 
 /**
  *
@@ -21,7 +20,7 @@ public class GivenSomeText extends Stage<GivenSomeText> {
     protected JTextField component;
     
     public GivenSomeText some_text(String text) {
-        component = new JTextField();
+        component = Mockito.spy(JTextField.class);
         component.setText(text);
         return self();
     }

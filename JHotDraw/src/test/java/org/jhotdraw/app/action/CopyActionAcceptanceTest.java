@@ -12,13 +12,13 @@ import org.junit.Test;
  *
  * @author madsfalken
  */
-public class CopyActionAcceptanceTest extends ScenarioTest<GivenSomeText, WhenISelectSomeText, ThenICanCopy> {
+public class CopyActionAcceptanceTest extends ScenarioTest<GivenSomeText, WhenISelectSomeText, ThenICanCopyAndPaste> {
     
     @Test
     public void Baasic_editing_copy() {
         given().some_text("Hello is it me you're looking for!");
         when().I_select_some_text();
-        then().I_can_copy();
+        then().I_can_copy_and_paste();
     }
 
 }
