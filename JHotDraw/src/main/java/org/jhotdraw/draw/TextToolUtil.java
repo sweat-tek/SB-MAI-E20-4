@@ -5,8 +5,10 @@
  */
 package org.jhotdraw.draw;
 
+import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoableEdit;
+import org.jhotdraw.app.JHotDrawFeatures;
 import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
@@ -45,7 +47,7 @@ public class TextToolUtil {
                 editedFigure.changed();
             }
         };
-        return edit;    
+        return edit;
     }
     
 }

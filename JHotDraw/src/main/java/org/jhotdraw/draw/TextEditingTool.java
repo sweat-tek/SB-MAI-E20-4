@@ -38,7 +38,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
      */
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
-
     }
 
     @Override
