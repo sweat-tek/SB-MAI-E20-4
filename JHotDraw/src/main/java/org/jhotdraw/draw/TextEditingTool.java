@@ -95,6 +95,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
             textField.endOverlay();
         }
+        //	        view().checkDamage();
     }
 
     @Override
