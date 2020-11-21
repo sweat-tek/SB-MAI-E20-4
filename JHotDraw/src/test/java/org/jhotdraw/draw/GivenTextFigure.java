@@ -51,7 +51,6 @@ public class GivenTextFigure extends Stage<GivenTextFigure> {
         Mockito.when(defaultDrawingEditor.findView(defaultDrawingView)).thenReturn(defaultDrawingView);      
         Mockito.when(defaultDrawingView.drawingToView(any(Rectangle2D.Double.class))).thenReturn(new Rectangle(x, y, 10, 10));
         Mockito.when(defaultDrawingView.drawingToView(any(Point2D.Double.class))).thenReturn(new Point(x, y));
-
         Mockito.when(defaultDrawingView.getDrawing()).thenReturn(drawing);
         Mockito.when(defaultDrawingView.getComponent()).thenReturn(defaultDrawingView);
         tool.activate(defaultDrawingEditor);
