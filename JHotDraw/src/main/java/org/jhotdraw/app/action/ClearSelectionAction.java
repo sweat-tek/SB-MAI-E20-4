@@ -15,14 +15,7 @@
 package org.jhotdraw.app.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import java.beans.*;
-import java.util.*;
-import org.jhotdraw.util.*;
-import org.jhotdraw.app.EditableComponent;
 import org.jhotdraw.app.JHotDrawFeatures;
 
 /**
@@ -31,29 +24,16 @@ import org.jhotdraw.app.JHotDrawFeatures;
  * @author Werner Randelshofer.
  * @version 1.0 2008-05-17 Created.
  */
-public class ClearSelectionAction extends AbstractAction {
+public class ClearSelectionAction extends AbstractSelectionAction {
     public final static String ID = "edit.clearSelection";
     
     /** Creates a new instance. */
     public ClearSelectionAction() {
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
         labels.configureAction(this, ID);
     }
 
     @FeatureEntryPoint(JHotDrawFeatures.AUTOMATIC_SELECTION)
     public void actionPerformed(ActionEvent evt) {
-        Component focusOwner = KeyboardFocusManager.
-                getCurrentKeyboardFocusManager().
-                getPermanentFocusOwner();
-        if (focusOwner != null) {
-            if (focusOwner instanceof EditableComponent) {
-                ((EditableComponent) focusOwner).clearSelection();
-            } else if (focusOwner instanceof JTextComponent) {
-               JTextComponent tc = ((JTextComponent) focusOwner);
-               tc.select(tc.getSelectionStart(), tc.getSelectionStart());
-            } else {
-                focusOwner.getToolkit().beep();
-            }
-        }
+        clearSelection();
     }
 }
