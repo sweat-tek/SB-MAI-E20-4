@@ -13,44 +13,44 @@ public class AlignActionAcceptanceTest extends ScenarioTest<GivenSomeState, When
 
     @Test
     public void TestNorthAlign() {
-        given().selectedFigures();
-        when().alignNorth();
+        given().someSelectedFigures();
+        when().pressAlignNorth();
         then().figuresAlignedNorth();
     }
 
     @Test
     public void TestSouthAlign() {
-        given().selectedFigures();
-        when().alignSouth();
+        given().someSelectedFigures();
+        when().pressAlignSouth();
         then().figuresAlignedSouth();
     }
 
     @Test
     public void TestEastAlign() {
-        given().selectedFigures();
-        when().alignEast();
+        given().someSelectedFigures();
+        when().pressAlignEast();
         then().figuresAlignedEast();
     }
 
     @Test
     public void TestWestAlign() {
-        given().selectedFigures();
-        when().alignWest();
+        given().someSelectedFigures();
+        when().pressAlignWest();
         then().figuresAlignedWest();
     }
 
     @Test
     public void TestVerticalAlign() {
-        given().selectedFigures();
-        when().alignVertical();
-        then().figuresAlignedVertical();
+        given().someSelectedFigures();
+        when().pressAlignVertical();
+        then().figuresAlignedVertically();
     }
 
     @Test
     public void TestHorizontalAlign() {
-        given().selectedFigures();
-        when().alignHorizontal();
-        then().figuresAlignedHorizontal();
+        given().someSelectedFigures();
+        when().pressAlignHorizontal();
+        then().figuresAlignedHorizontally();
     }
 }
 
@@ -61,7 +61,7 @@ class GivenSomeState extends Stage<GivenSomeState> {
     @ProvidedScenarioState
     DefaultDrawingEditor editor;
 
-    public GivenSomeState selectedFigures() {
+    public GivenSomeState someSelectedFigures() {
         test = new AlignActionTest();
         test.setUp();
         editor = test.getEditor();
@@ -77,32 +77,32 @@ class WhenSomeAction extends Stage<WhenSomeAction> {
     @ExpectedScenarioState
     DefaultDrawingEditor editor;
 
-    public WhenSomeAction alignNorth() {
+    public WhenSomeAction pressAlignNorth() {
         test.align(new North(editor));
         return self();
     }
 
-    public WhenSomeAction alignSouth() {
+    public WhenSomeAction pressAlignSouth() {
         test.align(new South(editor));
         return self();
     }
 
-    public WhenSomeAction alignEast() {
+    public WhenSomeAction pressAlignEast() {
         test.align(new East(editor));
         return self();
     }
 
-    public WhenSomeAction alignWest() {
+    public WhenSomeAction pressAlignWest() {
         test.align(new West(editor));
         return self();
     }
 
-    public WhenSomeAction alignVertical() {
+    public WhenSomeAction pressAlignVertical() {
         test.align(new Vertical(editor));
         return self();
     }
 
-    public WhenSomeAction alignHorizontal() {
+    public WhenSomeAction pressAlignHorizontal() {
         test.align(new Horizontal(editor));
         return self();
     }
@@ -133,12 +133,12 @@ class ThenSomeOutcome extends Stage<ThenSomeOutcome> {
         return self();
     }
 
-    public ThenSomeOutcome figuresAlignedVertical() {
+    public ThenSomeOutcome figuresAlignedVertically() {
         test.testVertical();
         return self();
     }
 
-    public ThenSomeOutcome figuresAlignedHorizontal() {
+    public ThenSomeOutcome figuresAlignedHorizontally() {
         test.testHorizontal();
         return self();
     }
