@@ -20,7 +20,7 @@ import org.mockito.Mockito;
  *
  * @author birke
  */
-public class Given extends Stage<Given> {
+public class GivenTextFigure extends Stage<GivenTextFigure> {
     @ProvidedScenarioState
     private TextEditingTool tool;  
     
@@ -32,7 +32,7 @@ public class Given extends Stage<Given> {
     private int y = 50;
     private Drawing drawing;
 
-    public Given aTextField() {
+    public GivenTextFigure aTextField() {
         MockSetup();
         tool.mousePressed(getMouseEvent(x,y));
         return this;

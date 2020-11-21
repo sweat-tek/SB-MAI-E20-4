@@ -12,7 +12,7 @@ import org.junit.Test;
  *
  * @author birke
  */
-public class TextEditingToolJGiven extends ScenarioTest<Given, When, Then> {
+public class TextToolAcceptanceTest extends ScenarioTest<GivenTextFigure, WhenTextEdit, ThenTextEdited> {
 
     @Test
     public void isEditedTest() {

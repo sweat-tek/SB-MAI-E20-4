@@ -7,28 +7,21 @@ package org.jhotdraw.draw;
 
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
-import com.tngtech.jgiven.annotation.ProvidedScenarioState;
-import org.jhotdraw.samples.svg.figures.SVGTextFigure;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
  * @author birke
  */
-public class When extends Stage<When> {
+public class ThenTextEdited extends Stage<ThenTextEdited> {
     @ExpectedScenarioState
-    @ProvidedScenarioState
     protected TextEditingTool tool;
-    @ProvidedScenarioState
-    protected TextHolderFigure newText;
-    
     @ExpectedScenarioState
-    protected DrawingView defaultDrawingView;
-    
-    
-    public When edit() {
-        newText = new SVGTextFigure("New");
+    protected TextHolderFigure newText;
 
-        tool.beginEdit(newText);
+    
+    public ThenTextEdited edited() {
+        assertEquals(tool.getTypingTarget().getText(), newText.getText());
         
         return this;
     }
