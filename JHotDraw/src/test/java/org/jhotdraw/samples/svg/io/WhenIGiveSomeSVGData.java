@@ -33,10 +33,6 @@ public class WhenIGiveSomeSVGData extends Stage<WhenIGiveSomeSVGData> {
     
     @ScenarioState
     LinkedList<Figure> figures;
-    
-    @Captor
-    ArgumentCaptor<LinkedList<Figure>> valueCapture;
-    
     public WhenIGiveSomeSVGData i_give_data(String svgData){
         InputStream in = null;
         try {
@@ -46,6 +42,7 @@ public class WhenIGiveSomeSVGData extends Stage<WhenIGiveSomeSVGData> {
         }
         boolean replace = false;
         Drawing drawingMock = mock(Drawing.class);
+        ArgumentCaptor<LinkedList<Figure>> valueCapture = ArgumentCaptor.forClass(LinkedList.class);
         try {
             component.read(in, drawingMock, replace);
         } catch (IOException ex) {
