@@ -250,18 +250,18 @@ public class QuadTreeDrawing extends AbstractDrawing {
     @Override
     @FeatureEntryPoint(JHotDrawFeatures.ARRANGE)
     public void bringToFront(Figure figure) {
-        if (children.remove(figure)) {
-            children.add(figure);
-            needsSorting = true;
-            fireAreaInvalidated(figure.getDrawingArea());
-        }
+        arrange(() -> { children.add(figure); }, figure);
     }
 
     @Override
     @FeatureEntryPoint(JHotDrawFeatures.ARRANGE)
     public void sendToBack(Figure figure) {
+        arrange(() -> { children.add(0, figure); }, figure);
+    }
+    
+    private void arrange(Runnable addFigure, Figure figure) {
         if (children.remove(figure)) {
-            children.add(0, figure);
+            addFigure.run();
             needsSorting = true;
             fireAreaInvalidated(figure.getDrawingArea());
         }

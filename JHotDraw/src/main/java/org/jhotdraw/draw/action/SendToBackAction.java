@@ -15,10 +15,7 @@
 package org.jhotdraw.draw.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import org.jhotdraw.util.*;
-import javax.swing.*;
 import java.util.*;
-import javax.swing.undo.*;
 import org.jhotdraw.app.JHotDrawFeatures;
 import org.jhotdraw.draw.*;
 
@@ -30,10 +27,12 @@ import org.jhotdraw.draw.*;
  * for consistency with the API of Drawing.
  * <br>1.0 24. November 2003  Created.
  */
-public class SendToBackAction extends AbstractSelectedAction {
+public class SendToBackAction extends AbstractArrangeAction {
     
-       public static String ID = "edit.sendToBack";
-    /** Creates a new instance. */
+    public static String ID = "edit.sendToBack";
+    
+    /** Creates a new instance.
+     * @param editor */
     public SendToBackAction(DrawingEditor editor) {
         super(editor);
         labels.configureAction(this, ID);
@@ -42,32 +41,15 @@ public class SendToBackAction extends AbstractSelectedAction {
     @FeatureEntryPoint(JHotDrawFeatures.ARRANGE)
     public void actionPerformed(java.awt.event.ActionEvent e) {
         final DrawingView view = getView();
-        final LinkedList<Figure> figures = new LinkedList<Figure>(view.getSelectedFigures());
+        final LinkedList<Figure> figures = new LinkedList<>(view.getSelectedFigures());
+        
         sendToBack(view, figures);
-        fireUndoableEditHappened(new AbstractUndoableEdit() {
-            @Override
-            public String getPresentationName() {
-       return labels.getTextProperty(ID);
-            }
-            @Override
-            public void redo() throws CannotRedoException {
-                super.redo();
-                SendToBackAction.sendToBack(view, figures);
-            }
-            @Override
-            public void undo() throws CannotUndoException {
-                super.undo();
-                BringToFrontAction.bringToFront(view, figures);
-            }
-        }
+        
+        setUndoRedoAction(
+                view, figures,
+                () -> {bringToFront(view, figures);},
+                () -> {sendToBack(view, figures);}
         );
     }
-    public static void sendToBack(DrawingView view, Collection figures) {
-        Iterator i = figures.iterator();
-        Drawing drawing = view.getDrawing();
-        while (i.hasNext()) {
-            Figure figure = (Figure) i.next();
-            drawing.sendToBack(figure);
-        }
-    }
+        
 }
