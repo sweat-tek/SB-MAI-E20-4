@@ -1,0 +1,71 @@
+{
+  "className": "org.jhotdraw.samples.svg.figures.InsertImageAcceptanceTest",
+  "name": "Insert Image Acceptance",
+  "scenarios": [
+    {
+      "className": "org.jhotdraw.samples.svg.figures.InsertImageAcceptanceTest",
+      "testMethodName": "testIfImageCreated",
+      "description": "Test if image created",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "casesAsTable": false,
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "given insert image button pressed",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "given insert image button pressed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 536392900
+            },
+            {
+              "name": "when image created",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "when image created"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 84124400
+            },
+            {
+              "name": "then image figure created",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "then image figure created"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1312700
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 660888700
+        }
+      ],
+      "durationInNanos": 660888700,
+      "executionStatus": "SUCCESS"
+    }
+  ],
+  "tagMap": {}
+}
