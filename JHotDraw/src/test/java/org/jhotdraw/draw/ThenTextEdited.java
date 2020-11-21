@@ -8,6 +8,7 @@ package org.jhotdraw.draw;
 import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -22,6 +23,8 @@ public class ThenTextEdited extends Stage<ThenTextEdited> {
     
     public ThenTextEdited edited() {
         assertEquals(tool.getTypingTarget().getText(), newText.getText());
+        assertTrue(tool != null);
+        assertTrue(tool.getTypingTarget() != null);
         
         return this;
     }
