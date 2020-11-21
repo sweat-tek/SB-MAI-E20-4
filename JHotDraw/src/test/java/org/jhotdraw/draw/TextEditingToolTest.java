@@ -90,6 +90,7 @@ public class TextEditingToolTest {
         tool.beginEdit(newText);
  
         assertEquals(tool.getTypingTarget().getText(), newText.getText());
+        assertTrue(true);
     }
     
     private void givenMousePressed() {
