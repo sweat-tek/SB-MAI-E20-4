@@ -35,6 +35,7 @@ import static org.jhotdraw.app.action.UndoAction.ID;
  * @version 2.0 2006-06-15 Reworked.
  * <br>1.0 October 9, 2005 Created.
  */
+
 public class UndoRedoAction extends AbstractViewAction {
     
     private PropertyChangeListener redoActionPropertyListener;
