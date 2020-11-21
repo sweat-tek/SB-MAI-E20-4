@@ -90,7 +90,7 @@ public class TextEditingToolTest {
         tool.beginEdit(newText);
  
         assertEquals(tool.getTypingTarget().getText(), newText.getText());
-        assertTrue(tool != null);
+        assert tool != null;
         assertTrue(tool.getTypingTarget() != null);
     }
     
