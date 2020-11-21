@@ -17,7 +17,9 @@ package org.jhotdraw.app.action;
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Optional;
 import javax.swing.*;
+import org.jhotdraw.app.EditableComponent;
 import org.jhotdraw.app.JHotDrawFeatures;
 import org.jhotdraw.util.*;
 /**
@@ -30,27 +32,28 @@ import org.jhotdraw.util.*;
  * interface EditableComponent. 
  * <br>1.0 October 9, 2005 Created.
  */
-public class CopyAction extends AbstractAction {
+public class CopyAction extends AbstractEditAction {
     public final static String ID = "edit.copy";
     
     /** Creates a new instance. */
     public CopyAction() {
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
-        labels.configureAction(this, ID);
+        super(ID);
     }
 
-    @FeatureEntryPoint(JHotDrawFeatures.BASIC_EDITING)
-   public void actionPerformed(ActionEvent evt) {
-        Component focusOwner = KeyboardFocusManager.
-                getCurrentKeyboardFocusManager().
-                getPermanentFocusOwner();
+     @Override
+    public void actionPerformed(ActionEvent e) {
+        super.onActionPerformed(e);
+    }
+
+    @Override
+    protected void onActionPerformed(ActionEvent event, Component focusOwner) {
         if (focusOwner != null && focusOwner instanceof JComponent) {
             JComponent component = (JComponent) focusOwner;
             component.getTransferHandler().exportToClipboard(
                     component,
                     component.getToolkit().getSystemClipboard(),
                     TransferHandler.COPY
-                    );
+                );
         }
     }
 }

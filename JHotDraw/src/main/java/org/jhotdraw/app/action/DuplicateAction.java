@@ -31,26 +31,28 @@ import org.jhotdraw.app.JHotDrawFeatures;
  * @author Werner Randelshofer.
  * @version 1.0 February 27, 2006 Created.
  */
-public class DuplicateAction extends AbstractAction {
+public class DuplicateAction extends AbstractEditAction  {
     public final static String ID = "edit.duplicate";
     
     /** Creates a new instance. */
     public DuplicateAction() {
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
-        labels.configureAction(this, ID);
+        super(ID);
     }
 
-    @FeatureEntryPoint(JHotDrawFeatures.BASIC_EDITING)
-    public void actionPerformed(ActionEvent evt) {
-        Component focusOwner = KeyboardFocusManager.
-                getCurrentKeyboardFocusManager().
-                getPermanentFocusOwner();
-        if (focusOwner != null) {
+    @Override
+    public void onActionPerformed(ActionEvent event, Component component) {
+        Optional.ofNullable(component).ifPresent(focusOwner -> {
             if (focusOwner instanceof EditableComponent) {
                 ((EditableComponent) focusOwner).duplicate();
             } else {
                 focusOwner.getToolkit().beep();
             }
-        }
+        });
     }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        super.onActionPerformed(e);
+    }
+
 }
