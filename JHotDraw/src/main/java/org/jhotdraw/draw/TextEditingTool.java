@@ -125,7 +125,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     }
 
     public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     protected TextHolderFigure getTypingTarget() {
