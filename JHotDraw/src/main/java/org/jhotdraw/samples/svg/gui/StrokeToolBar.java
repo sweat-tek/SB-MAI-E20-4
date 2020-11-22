@@ -64,14 +64,6 @@ public class StrokeToolBar extends GenericToolBar {
                         new StrokeJoinToolBarElement(),
                         new StrokeCapToolBarElement(),
                         new ExtendedStrokeDashesToolBarElement()
-                ),
-                new CompositeToolBarElement(
-                        new StrokeJoinToolBarElement(),
-                        new StrokeCapToolBarElement(),
-                        new ExtendedStrokeDashesToolBarElement(),
-                        new StrokeJoinToolBarElement(),
-                        new StrokeJoinToolBarElement(),
-                        new StrokeJoinToolBarElement()
                 )
         );
     }
