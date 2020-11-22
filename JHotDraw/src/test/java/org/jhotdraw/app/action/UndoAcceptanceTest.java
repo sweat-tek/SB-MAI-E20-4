@@ -6,6 +6,7 @@
 package org.jhotdraw.app.action;
 
 import com.tngtech.jgiven.junit.ScenarioTest;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -15,6 +16,7 @@ import org.junit.Test;
 public class UndoAcceptanceTest extends ScenarioTest<GivenFigureToUndo, WhenOnUndo, ThenFigureIsUndone>{
     
     // @Test Does not work yet
+    @Ignore("Not ready yet")
     public void undoTest() {
         given().anFigure();
         when().undoFigure();
