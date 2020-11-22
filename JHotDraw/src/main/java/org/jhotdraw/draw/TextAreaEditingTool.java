@@ -47,8 +47,11 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
 
     private FloatingTextArea textArea;
     private TextHolderFigure typingTarget;
+    private TextAreaCreationTool creationTool;
+    private TextAreaUndoRedoTool UndoRedoTool;
 
-    /** Creates a new instance. */
+    /** Creates a new instance.
+     * @param typingTarget */
     public TextAreaEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
     }
@@ -61,8 +64,8 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
     }
 
     /**
-     * Creates a new figure at the mouse location.
-     * If editing is in progress, this finishes editing.
+     * Creates a new figure at the mouse location.If editing is in progress, this finishes editing.
+     * @param e
      */
     @Override
     public void mousePressed(MouseEvent e) {
@@ -85,7 +88,7 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
         }
 
         if (textHolder != typingTarget && typingTarget != null) {
-            endEdit();
+            creationTool.endEdit();
         }
         textArea.createOverlay(getView(), textHolder);
         textArea.setBounds(getFieldBounds(textHolder), textHolder.getText());
@@ -107,8 +110,8 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
         r.height += 4;
         return r;
     }
-
-    protected void endEdit() {
+    
+protected void endEdit() {
         if (typingTarget != null) {
             typingTarget.willChange();
 
@@ -121,31 +124,8 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
             } else {
                     typingTarget.setText("");
             }
-
-            UndoableEdit edit = new AbstractUndoableEdit() {
-
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
-
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
+            UndoableEdit edit = UndoRedoTool.undoRedo(editedFigure,oldText, newText);
+            
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
@@ -155,12 +135,15 @@ public class TextAreaEditingTool extends AbstractTool implements ActionListener 
         }
     //	        view().checkDamage();
     }
+    
 
+    @Override
     public void actionPerformed(ActionEvent event) {
-        endEdit();
+        creationTool.endEdit();
             fireToolDone();
     }
 
+    @Override
     public void mouseDragged(MouseEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -1,3 +1,12 @@
+JHotDraw/target/
+/JHotDraw/nbactions.xml
+.idea/
+*.iml
+out/
+JHotDraw/FeatureTraces/
+JHotDraw/.ij/
+/JHotDraw/nbproject/
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,java,maven,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,java,maven,windows
 
@@ -95,3 +104,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,java,maven,windows
+

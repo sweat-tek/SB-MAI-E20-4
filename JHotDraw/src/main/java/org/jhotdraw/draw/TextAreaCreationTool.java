@@ -25,40 +25,42 @@ import org.jhotdraw.geom.*;
 import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
- * A tool to create new or edit existing figures that implement the TextHolderFigure
- * interface, such as TextAreaFigure. The figure to be created is specified by a
- * prototype.
+ * A tool to create new or edit existing figures that implement the
+ * TextHolderFigure interface, such as TextAreaFigure. The figure to be created
+ * is specified by a prototype.
  * <p>
- * To create a figure using the TextAreaCreationTool, the user does the following mouse
- * gestures on a DrawingView:
+ * To create a figure using the TextAreaCreationTool, the user does the
+ * following mouse gestures on a DrawingView:
  * <ol>
- * <li>Press the mouse button over the DrawingView. This defines the
- * start point of the Figure bounds.</li>
+ * <li>Press the mouse button over the DrawingView. This defines the start point
+ * of the Figure bounds.</li>
  * <li>Drag the mouse while keeping the mouse button pressed, and then release
  * the mouse button. This defines the end point of the Figure bounds.</li>
  * </ol>
- * When the user has performed these mouse gesture, the TextAreaCreationTool overlays
- * a text area over the drawing where the user can enter the text for the Figure.
+ * When the user has performed these mouse gesture, the TextAreaCreationTool
+ * overlays a text area over the drawing where the user can enter the text for
+ * the Figure.
  * <p>
- * To edit an existing text figure using the TextAreaCreationTool, the user does the
- * following mouse gesture on a DrawingView:
+ * To edit an existing text figure using the TextAreaCreationTool, the user does
+ * the following mouse gesture on a DrawingView:
  * </p>
  * <ol>
  * <li>Press the mouse button over a Figure on the DrawingView.</li>
  * </ol>
  * <p>
- * The TextAreaCreationTool then uses Figure.findFigureInside to find a Figure that
- * implements the TextHolderFigure interface and that is editable. Then it overlays
- * a text area over the drawing where the user can enter the text for the Figure.
+ * The TextAreaCreationTool then uses Figure.findFigureInside to find a Figure
+ * that implements the TextHolderFigure interface and that is editable. Then it
+ * overlays a text area over the drawing where the user can enter the text for
+ * the Figure.
  * </p>
  * <p>
- * XXX - Maybe this class should be split up into a CreateTextAreaTool and
- * a EditTextAreaTool.
+ * XXX - Maybe this class should be split up into a CreateTextAreaTool and a
+ * EditTextAreaTool.
  * </p>
  *
  * @author Werner Randelshofer
- * @version 2.3.1 2009-03-29 Editing of a TextArea which is behind another figure
- * did not work. Partially implemented undoable edit handling.
+ * @version 2.3.1 2009-03-29 Editing of a TextArea which is behind another
+ * figure did not work. Partially implemented undoable edit handling.
  * <br>2.3 2008-05-17 Honor toolDoneAfterCreation property.
  * <br>2.2 2007-11-25 Added variable isForCreationOnly.
  * <br>2.1 2007-08-22 Added support for property 'toolDoneAfterCreation'.
@@ -71,20 +73,26 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
 
     private FloatingTextArea textArea;
     private TextHolderFigure typingTarget;
+    private TextAreaUndoRedoTool UndoRedoTool;
     /**
-     * Rubberband color of the tool. When this is null, the tool does not
-     * draw a rubberband.
+     * Rubberband color of the tool. When this is null, the tool does not draw a
+     * rubberband.
      */
     private Color rubberbandColor = null;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     *
+     * @param prototype
+     */
     public TextAreaCreationTool(TextHolderFigure prototype) {
         super(prototype);
     }
 
-    public TextAreaCreationTool(TextHolderFigure prototype, Map<AttributeKey,Object> attributes) {
+    public TextAreaCreationTool(TextHolderFigure prototype, Map<AttributeKey, Object> attributes) {
         super(prototype, attributes);
     }
+    
 
     /**
      * Sets the rubberband color for the tool. Setting this to null, disables
@@ -103,8 +111,10 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
     }
 
     /**
-     * Creates a new figure at the mouse location.
-     * If editing is in progress, this finishes editing.
+     * Creates a new figure at the mouse location.If editing is in progress,
+     * this finishes editing.
+     *
+     * @param e
      */
     @Override
     @FeatureEntryPoint(JHotDrawFeatures.TEXT_AREA_TOOL)
@@ -114,7 +124,6 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         // Note: The search sequence used here, must be
         // consistent with the search sequence used by the
         // HandleTracker, SelectAreaTracker, DelegationSelectionTool, SelectionTool.
-
         // If possible, continue to work with the current selection
         DrawingView v = getView();
         Point2D.Double p = v.viewToDrawing(e.getPoint());
@@ -137,7 +146,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         // 
         if (pressedFigure instanceof TextHolderFigure) {
             textHolder = (TextHolderFigure) pressedFigure;
-                textHolder = null;
+           // textHolder = null;
         }
 
         if (textHolder != null) {
@@ -157,8 +166,10 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
 
     /**
      * This method allows subclasses to do perform additonal user interactions
-     * after the new figure has been created.
-     * The implementation of this class just invokes fireToolDone.
+     * after the new figure has been created.The implementation of this class
+     * just invokes fireToolDone.
+     *
+     * @param createdFigure
      */
     @Override
     protected void creationFinished(Figure createdFigure) {
@@ -166,6 +177,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         getView().addToSelection(createdFigure);
         beginEdit((TextHolderFigure) createdFigure);
     }
+
     /*
     public void mouseDragged(java.awt.event.MouseEvent e) {
     }
@@ -184,7 +196,7 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
         if (textArea == null) {
             textArea = new FloatingTextArea();
 
-        //textArea.addActionListener(this);
+            //textArea.addActionListener(this);
         }
 
         if (textHolder != typingTarget && typingTarget != null) {
@@ -225,36 +237,14 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
             } else {
                 if (createdFigure != null) {
                     getDrawing().remove((Figure) getAddedFigure());
-                // XXX - Fire undoable edit here!!
+                    // XXX - Fire undoable edit here!!
                 } else {
                     typingTarget.setText("");
                 }
             }
 
-            UndoableEdit edit = new AbstractUndoableEdit() {
+            UndoableEdit edit = UndoRedoTool.undoRedo(editedFigure, oldText, newText);
 
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
-
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
@@ -262,9 +252,10 @@ public class TextAreaCreationTool extends CreationTool implements ActionListener
 
             textArea.endOverlay();
         }
-    //	        view().checkDamage();
+        //	        view().checkDamage();
     }
 
+    @Override
     public void actionPerformed(ActionEvent event) {
         endEdit();
         if (isToolDoneAfterCreation()) {
