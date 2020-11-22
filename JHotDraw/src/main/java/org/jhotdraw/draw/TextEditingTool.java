@@ -15,14 +15,11 @@ package org.jhotdraw.draw;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Point2D;
-import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.UndoableEdit;
-import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
- * A tool to edit figures which implement the {@code TextHolderFigure} interface,
- * such as {@code TextFigure}.
+ * A tool to edit figures which implement the {@code TextHolderFigure}
+ * interface, such as {@code TextFigure}.
  *
  * @see TextHolderFigure
  * @see FloatingTextField
@@ -34,8 +31,11 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
     private FloatingTextField textField;
     private TextHolderFigure typingTarget;
+    private TextToolUtil textToolUtil;
 
-    /** Creates a new instance. */
+    /**
+     * Creates a new instance.
+     */
     public TextEditingTool(TextHolderFigure typingTarget) {
         this.typingTarget = typingTarget;
     }
@@ -62,7 +62,7 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
             textField = new FloatingTextField();
             textField.addActionListener(this);
         }
-
+        
         if (textHolder != typingTarget && typingTarget != null) {
             endEdit();
         }
@@ -80,37 +80,14 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
         if (typingTarget != null) {
             typingTarget.willChange();
 
-            final TextHolderFigure editedFigure = typingTarget;
             final String oldText = typingTarget.getText();
             final String newText = textField.getText();
+            textToolUtil = new TextToolUtil();
 
             if (newText.length() > 0) {
                 typingTarget.setText(newText);
             }
-            UndoableEdit edit = new AbstractUndoableEdit() {
-
-                @Override
-                public String getPresentationName() {
-                    ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.draw.Labels");
-                    return labels.getString("attribute.text.text");
-                }
-
-                @Override
-                public void undo() {
-                    super.undo();
-                    editedFigure.willChange();
-                    editedFigure.setText(oldText);
-                    editedFigure.changed();
-                }
-
-                @Override
-                public void redo() {
-                    super.redo();
-                    editedFigure.willChange();
-                    editedFigure.setText(newText);
-                    editedFigure.changed();
-                }
-            };
+            UndoableEdit edit = textToolUtil.undoRedo(typingTarget, oldText, newText);
             getDrawing().fireUndoableEditHappened(edit);
 
             typingTarget.changed();
@@ -118,7 +95,6 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
 
             textField.endOverlay();
         }
-    //	        view().checkDamage();
     }
 
     @Override
@@ -147,6 +123,11 @@ public class TextEditingTool extends AbstractTool implements ActionListener {
     }
 
     public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    protected TextHolderFigure getTypingTarget() {
+        return typingTarget;
+    }
+    
+
 }
