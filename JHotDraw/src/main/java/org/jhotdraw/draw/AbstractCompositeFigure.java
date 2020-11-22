@@ -48,7 +48,7 @@ public abstract class AbstractCompositeFigure
      * @see #add
      * @see #removeChild
      */
-    protected ArrayList<Figure> children = new ArrayList<Figure>();
+    public ArrayList<Figure> children = new ArrayList<Figure>();
     /**
      * Cached draw cachedBounds.
      */
