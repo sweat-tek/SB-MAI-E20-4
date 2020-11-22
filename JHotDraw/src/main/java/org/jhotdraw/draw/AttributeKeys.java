@@ -320,7 +320,6 @@ public class AttributeKeys {
     public final static AttributeKey<AffineTransform> TRANSFORM = new AttributeKey<AffineTransform>("transform", AffineTransform.class, null, true, labels);
 
     public static enum Orientation {
-
         NORTH,
         NORTH_EAST,
         EAST,

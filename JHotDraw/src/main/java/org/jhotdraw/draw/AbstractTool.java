@@ -22,6 +22,9 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 import javax.swing.event.*;
+import javax.swing.undo.AbstractUndoableEdit;
+import javax.swing.undo.UndoableEdit;
+import org.jhotdraw.util.ResourceBundleUtil;
 
 /**
  * AbstractTool.
@@ -434,4 +437,6 @@ public abstract class AbstractTool extends AbstractBean implements Tool {
     public boolean supportsHandleInteraction() {
         return false;
     }
+    
+    
 }

@@ -220,8 +220,8 @@ public class BezierTool extends AbstractTool {
             }
         }
     }
-
-    protected void fireUndoEvent(Figure createdFigure, DrawingView creationView) {
+    // Changes to public
+    public void fireUndoEvent(Figure createdFigure, DrawingView creationView) {
         final Figure addedFigure = createdFigure;
         final Drawing addedDrawing = creationView.getDrawing();
         final DrawingView addedView = creationView;
