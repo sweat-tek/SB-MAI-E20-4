@@ -17,6 +17,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  *
@@ -61,9 +63,11 @@ public class SVGPathFigureTest {
      */
     @Test
     public void testDraw() {
+        Color color = Color.BLACK;
         System.out.println("draw");
-        instance.setAttribute(AttributeKeys.FILL_COLOR, Color.BLACK);
-        Graphics2D g = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB).createGraphics(); //Probably a good idea to mock this out!
+        instance.setAttribute(AttributeKeys.FILL_COLOR, color);
+        Graphics2D g = mock(Graphics2D.class); //new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB).createGraphics(); //Probably a good idea to mock this out!
+        when(g.getPaint()).thenReturn(color);
         instance.draw(g);
         assertEquals(instance.getAttribute(AttributeKeys.FILL_COLOR), g.getPaint());
     }

@@ -22,7 +22,7 @@ public class ThenLineIsDrawn extends Stage<ThenLineIsDrawn> {
     @ExpectedScenarioState
     Color color;
     
-    public ThenLineIsDrawn SVGPathFigure_is_chosen_color(){
+    public ThenLineIsDrawn SVGPathFigure_is_the_chosen_color(){
         assert svgPathFigure.getAttribute(AttributeKeys.STROKE_COLOR).equals(color);
         return self();
     }
