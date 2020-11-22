@@ -15,14 +15,7 @@
 package org.jhotdraw.app.action;
 
 import dk.sdu.mmmi.featuretracer.lib.FeatureEntryPoint;
-import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.text.*;
-import java.beans.*;
-import java.util.*;
-import org.jhotdraw.util.*;
-import org.jhotdraw.app.EditableComponent;
 import org.jhotdraw.app.JHotDrawFeatures;
 
 /**
@@ -31,28 +24,16 @@ import org.jhotdraw.app.JHotDrawFeatures;
  * @author Werner Randelshofer.
  * @version 1.0 February 27, 2006 Created.
  */
-public class SelectAllAction extends AbstractAction {
+public class SelectAllAction extends AbstractSelectionAction {
     public final static String ID = "edit.selectAll";
     
     /** Creates a new instance. */
     public SelectAllAction() {
-        ResourceBundleUtil labels = ResourceBundleUtil.getBundle("org.jhotdraw.app.Labels");
         labels.configureAction(this, ID);
     }
 
     @FeatureEntryPoint(JHotDrawFeatures.AUTOMATIC_SELECTION)
     public void actionPerformed(ActionEvent evt) {
-        Component focusOwner = KeyboardFocusManager.
-                getCurrentKeyboardFocusManager().
-                getPermanentFocusOwner();
-        if (focusOwner != null) {
-            if (focusOwner instanceof EditableComponent) {
-                ((EditableComponent) focusOwner).selectAll();
-            } else if (focusOwner instanceof JTextComponent) {
-                ((JTextComponent) focusOwner).selectAll();
-            } else {
-                focusOwner.getToolkit().beep();
-            }
-        }
+        selectAll();
     }
 }
