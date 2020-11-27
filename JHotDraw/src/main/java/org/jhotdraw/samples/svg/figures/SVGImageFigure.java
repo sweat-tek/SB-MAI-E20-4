@@ -80,18 +80,25 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
     @FeatureEntryPoint(JHotDrawFeatures.IMAGE_TOOL)
     public void draw(Graphics2D g) {
         //super.draw(g);
-
         double opacity = OPACITY.get(this);
         opacity = Math.min(Math.max(0d, opacity), 1d);
         if (opacity != 0d) {
             Composite savedComposite = g.getComposite();
             if (opacity != 1d) {
                 g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) opacity));
+                g.setComposite(savedComposite);
             }
-
             BufferedImage image = getBufferedImage();
             if (image != null) {
-                if (TRANSFORM.get(this) != null) {
+                create2DGraphics(image, g);
+            } else {
+                drawDefaultShape(g);
+            }
+        }
+    }
+    
+    protected void create2DGraphics(BufferedImage image,Graphics2D g){
+        if (TRANSFORM.get(this) != null) {
                     // FIXME - We should cache the transformed image.
                     //         Drawing a transformed image appears to be very slow.
                     Graphics2D gx = (Graphics2D) g.create();
@@ -105,19 +112,15 @@ public class SVGImageFigure extends SVGAttributedFigure implements SVGFigure, Im
                 } else {
                     g.drawImage(image, (int) rectangle.x, (int) rectangle.y, (int) rectangle.width, (int) rectangle.height, null);
                 }
-            } else {
-                Shape shape = getTransformedShape();
+    }
+
+    protected void drawDefaultShape(Graphics2D g){
+                 Shape shape = getTransformedShape();
                 g.setColor(Color.red);
                 g.setStroke(new BasicStroke());
                 g.draw(shape);
-            }
-
-            if (opacity != 1d) {
-                g.setComposite(savedComposite);
-            }
-        }
     }
-
+    
     protected void drawFill(Graphics2D g) {
 
     }

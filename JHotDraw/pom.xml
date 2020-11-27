@@ -10,6 +10,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
     <repositories>
         <!--
         Repository hosting NetBeans modules, especially APIs.
@@ -39,7 +40,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.6.0</version>
-        </dependency> 
+        </dependency>
         <dependency>
             <groupId>com.tngtech.jgiven</groupId>
             <artifactId>jgiven-junit</artifactId>
