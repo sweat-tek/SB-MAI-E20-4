@@ -29,12 +29,10 @@ import org.jhotdraw.app.JHotDrawFeatures;
  */
 public class SelectSameAction extends AbstractSelectedAction {
     public final static String ID = "edit.selectSame";
-    /** Creates a new instance. */
+    
     public SelectSameAction(DrawingEditor editor) {
         super(editor);
         labels.configureAction(this, ID);
-        //putValue(AbstractAction.NAME, labels.getString("editSelectSame"));
-        //  putValue(AbstractAction.MNEMONIC_KEY, labels.getString("editSelectSameMnem"));
     }
 
     @FeatureEntryPoint(JHotDrawFeatures.AUTOMATIC_SELECTION)
