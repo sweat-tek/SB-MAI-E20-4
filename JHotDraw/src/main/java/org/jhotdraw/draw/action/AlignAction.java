@@ -63,14 +63,14 @@ public abstract class AlignAction extends AbstractSelectedAction {
     }
 
     protected void alignFigures(Collection<Figure> selectedFigures, Rectangle2D.Double selectionBounds){
-        double x, y = 0;
+        double x, y;
         for (Figure f : selectedFigures) {
             if (f.isTransformable()) {
                 f.willChange();
                 Rectangle2D.Double figureBounds = f.getBounds();
                 AffineTransform tx = new AffineTransform();
-                x = this.tanslateX(figureBounds, selectionBounds);
-                y = this.tanslateY(figureBounds, selectionBounds);
+                x = this.translateX(figureBounds, selectionBounds);
+                y = this.translateY(figureBounds, selectionBounds);
                 tx.translate(x, y);
                 f.transform(tx);
                 f.changed();
@@ -79,11 +79,11 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
     }
 
-    protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+    protected double translateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
         return 0;
     }
     
-    protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+    protected double translateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
         return 0;
     }
     
@@ -115,7 +115,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
         
         @Override
-        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+        protected double translateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.y - figureBounds.y;
         }
     }
@@ -133,7 +133,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
 
         @Override
-        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+        protected double translateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.x + selectionBounds.width - figureBounds.x - figureBounds.width;
         }
     }
@@ -151,7 +151,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
 
         @Override
-        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+        protected double translateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.x - figureBounds.x;
         }
     }
@@ -169,7 +169,7 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
 
         @Override
-        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+        protected double translateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
             return selectionBounds.y + selectionBounds.height - figureBounds.y - figureBounds.height;
         }
     }
@@ -187,8 +187,8 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
 
         @Override
-        protected double tanslateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
-            return selectionBounds.y + selectionBounds.height / 2 - figureBounds.y - figureBounds.height / 2;
+        protected double translateY(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.getCenterY() - figureBounds.getCenterY();
         }
     }
 
@@ -205,8 +205,8 @@ public abstract class AlignAction extends AbstractSelectedAction {
         }
 
         @Override
-        protected double tanslateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
-            return selectionBounds.x + selectionBounds.width / 2 - figureBounds.x - figureBounds.width / 2;
+        protected double translateX(Rectangle2D.Double figureBounds, Rectangle2D.Double selectionBounds){
+            return selectionBounds.getCenterX() - figureBounds.getCenterX();
         }
     }
 }
